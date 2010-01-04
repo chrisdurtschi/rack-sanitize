@@ -7,10 +7,18 @@ require 'spec/autorun'
 require 'sinatra/base'
 
 class PotentialVictim < Sinatra::Base
-  get '/' do
-    gets = request.GET.map {|k,v| "#{k}=#{v}"}.sort.join('&')
-    posts = request.POST.map {|k,v| "#{k}=#{v}"}.sort.join('&')
-    ['GETs:', gets, 'POSTs:', posts].join(' ')
+  helpers do
+    def render_key_value(hash)
+      hash.map {|k,v| "#{k}=#{v}"}.sort.join('&')
+    end
+  end
+  
+  get '/get' do
+    "GETs: #{render_key_value(request.GET)}"
+  end
+  
+  post '/post' do
+    "POSTs: #{render_key_value(request.POST)}"
   end
 end
 
