@@ -11,7 +11,6 @@ begin
     gem.homepage = "http://github.com/robotapocalypse/rack-sanitize"
     gem.authors = ["robotapocalypse"]
     gem.add_development_dependency "rspec"
-    gem.add_development_dependency "cucumber"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
@@ -31,17 +30,6 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
 end
 
 task :spec => :check_dependencies
-
-begin
-  require 'cucumber/rake/task'
-  Cucumber::Rake::Task.new(:features)
-
-  task :features => :check_dependencies
-rescue LoadError
-  task :features do
-    abort "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
-  end
-end
 
 task :default => :spec
 
