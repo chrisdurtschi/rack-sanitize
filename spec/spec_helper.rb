@@ -12,11 +12,11 @@ class PotentialVictim < Sinatra::Base
       hash.map {|k,v| "#{k}=#{v}"}.sort.join('&')
     end
   end
-  
+
   get '/get' do
     "GETs: #{render_key_value(request.GET)}"
   end
-  
+
   post '/post' do
     "POSTs: #{render_key_value(request.POST)}"
   end
@@ -24,7 +24,7 @@ end
 
 Spec::Runner.configure do |config|
   config.include Rack::Test::Methods
-  
+
   def app
     @app ||= Rack::Builder.app do
       use Rack::Sanitize

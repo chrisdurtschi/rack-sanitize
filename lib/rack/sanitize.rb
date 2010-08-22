@@ -5,7 +5,7 @@ module Rack
     def initialize(app)
       @app = app
     end
-    
+
     def call(env)
       request = Rack::Request.new(env)
       request.GET.each {|k,v| request.GET[k] = ::Sanitize.clean(v)}
