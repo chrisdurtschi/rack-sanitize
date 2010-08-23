@@ -5,20 +5,15 @@ require 'rack/test'
 require 'spec'
 require 'spec/autorun'
 require 'sinatra/base'
+require 'active_support/core_ext/object/to_query'
 
 class PotentialVictim < Sinatra::Base
-  helpers do
-    def render_key_value(hash)
-      hash.map {|k,v| "#{k}=#{v}"}.sort.join('&')
-    end
-  end
-
   get '/get' do
-    "GETs: #{render_key_value(request.GET)}"
+    "GETs: #{request.GET.to_query}"
   end
 
   post '/post' do
-    "POSTs: #{render_key_value(request.POST)}"
+    "POSTs: #{request.POST.to_query}"
   end
 end
 

@@ -11,6 +11,21 @@ describe Rack::Sanitize do
     last_response.body.should == "POSTs: a=ok&okie=dokie"
   end
 
+  it "should sanitize nested parameters" do
+    params = {
+      "parent" => {
+        "a" => {"okay" => %Q{<script src="http://iammalicious.com">arsehole</script>}},
+        "okie" => %Q{<script src="http://iammalicious.com">dokie</script>}
+      }
+    }
+
+    get '/get', params
+    last_response.body.should == "GETs: parent[a][okay]=arsehole&parent[okie]=dokie"
+
+    post '/post', params
+    last_response.body.should == "POSTs: parent[a][okay]=arsehole&parent[okie]=dokie"
+  end
+
   it "should sanitize if the path matches" do
 
   end
