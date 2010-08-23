@@ -26,6 +26,24 @@ describe Rack::Sanitize do
     last_response.body.should == "POSTs: parent[a][okay]=arsehole&parent[okie]=dokie"
   end
 
+  it "should sanitize elements in an array" do
+    params = {
+      "person" => {
+        "pets" => [
+          {"dog" => "<script>woof</script>"},
+          {"cat" => "<script>meow</script>"}
+        ]
+      },
+      "beer" => ["<script>porter</script>", "pilsner"]
+    }
+
+    get '/get', params
+    last_response.body.should == "GETs: person[pets][][dog]=woof&person[pets][][cat]=meow&beer[]=porter&beer[]=pilsner"
+
+    post '/post', params
+    last_response.body.should == "POSTs: person[pets][][dog]=woof&person[pets][][cat]=meow&beer[]=porter&beer[]=pilsner"
+  end
+
   it "should sanitize if the path matches" do
 
   end

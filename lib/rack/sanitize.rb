@@ -18,6 +18,8 @@ private
     def sanitize(value)
       if value.is_a?(Hash)
         value.each {|k,v| value[k] = sanitize(v)}
+      elsif value.is_a?(Array)
+        value.map {|v| sanitize(v)}
       elsif value.is_a?(String)
         ::Sanitize.clean(value)
       end
