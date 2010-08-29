@@ -2,8 +2,9 @@ require 'sanitize'
 
 module Rack
   class Sanitize
-    def initialize(app)
-      @app = app
+    def initialize(app, config={})
+      @app    = app
+      @config = config
     end
 
     def call(env)
@@ -21,7 +22,7 @@ private
       elsif value.is_a?(Array)
         value.map {|v| sanitize(v)}
       elsif value.is_a?(String)
-        ::Sanitize.clean(value)
+        ::Sanitize.clean(value, @config)
       end
     end
 

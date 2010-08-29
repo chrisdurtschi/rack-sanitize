@@ -44,6 +44,21 @@ describe Rack::Sanitize do
     last_response.body.should == "POSTs: person[pets][][dog]=woof&person[pets][][cat]=meow&beer[]=porter&beer[]=pilsner"
   end
 
+  it "should allow the sanitize configuration to be set" do
+    @app = Rack::Builder.app do
+      use Rack::Sanitize, Sanitize::Config::RELAXED
+      run PotentialVictim
+    end
+
+    params = {"image" => %Q{<img src="/hello.jpg" />}}
+
+    get '/get', params
+    last_response.body.should == %Q{GETs: image=<img src="/hello.jpg" />}
+
+    post '/post', params
+    last_response.body.should == %Q{POSTs: image=<img src="/hello.jpg" />}
+  end
+
   it "should sanitize if the path matches" do
 
   end

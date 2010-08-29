@@ -9,11 +9,11 @@ require 'active_support/core_ext/object/to_query'
 
 class PotentialVictim < Sinatra::Base
   get '/get' do
-    "GETs: #{request.GET.to_query}"
+    "GETs: #{Rack::Utils.unescape(request.GET.to_query)}"
   end
 
   post '/post' do
-    "POSTs: #{request.POST.to_query}"
+    "POSTs: #{Rack::Utils.unescape(request.POST.to_query)}"
   end
 end
 
