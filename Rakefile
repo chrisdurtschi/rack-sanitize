@@ -5,12 +5,16 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rack-sanitize"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Rack middleware to sanitize GET and POST parameters}
+    gem.description = %Q{Remove all malicious HTML from your request before it reaches your application}
     gem.email = "pherph@gmail.com"
     gem.homepage = "http://github.com/robotapocalypse/rack-sanitize"
     gem.authors = ["robotapocalypse"]
-    gem.add_development_dependency "rspec"
+    gem.add_dependency "sanitize", "~>1.2.0"
+    gem.add_development_dependency "rspec", "~>1.3.0"
+    gem.add_development_dependency "rack-test", "~>0.5.4"
+    gem.add_development_dependency "sinatra", "~>1.0"
+    gem.add_development_dependency "activesupport", "~>3.0.0.rc2"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
