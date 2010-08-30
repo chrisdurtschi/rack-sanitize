@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-sanitize}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["robotapocalypse"]
-  s.date = %q{2010-08-22}
-  s.description = %q{TODO: longer description of your gem}
+  s.date = %q{2010-08-29}
+  s.description = %q{Remove all malicious HTML from your request before it reaches your application}
   s.email = %q{pherph@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -19,21 +19,25 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     "Gemfile",
+     "Gemfile.lock",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
      "lib/rack/sanitize.rb",
-     "spec/rack/sanitize.rb",
+     "rack-sanitize.gemspec",
+     "spec/rack/sanitize_spec.rb",
+     "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/robotapocalypse/rack-sanitize}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Rack middleware to sanitize GET and POST parameters}
   s.test_files = [
-    "spec/rack/sanitize.rb",
+    "spec/rack/sanitize_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -42,15 +46,24 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_runtime_dependency(%q<sanitize>, ["~> 1.2.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_development_dependency(%q<rack-test>, ["~> 0.5.4"])
+      s.add_development_dependency(%q<sinatra>, ["~> 1.0"])
+      s.add_development_dependency(%q<activesupport>, ["~> 3.0.0.rc2"])
     else
-      s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<sanitize>, ["~> 1.2.0"])
+      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_dependency(%q<rack-test>, ["~> 0.5.4"])
+      s.add_dependency(%q<sinatra>, ["~> 1.0"])
+      s.add_dependency(%q<activesupport>, ["~> 3.0.0.rc2"])
     end
   else
-    s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<sanitize>, ["~> 1.2.0"])
+    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+    s.add_dependency(%q<rack-test>, ["~> 0.5.4"])
+    s.add_dependency(%q<sinatra>, ["~> 1.0"])
+    s.add_dependency(%q<activesupport>, ["~> 3.0.0.rc2"])
   end
 end
 
