@@ -23,6 +23,8 @@ private
         value.map {|v| sanitize(v)}
       elsif value.is_a?(String)
         ::Sanitize.clean(value, @config)
+      else
+        value
       end
     end
 

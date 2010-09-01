@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Rack::Sanitize do
   it "should sanitize GETs" do
@@ -69,5 +69,27 @@ describe Rack::Sanitize do
 
   it "should default to sanitizing both GETs and POSTs" do
 
+  end
+
+  describe "file uploads" do
+    before do
+      @fixtures_dir  = File.join(File.dirname(__FILE__), '..', 'fixtures')
+      @gnu_file      = File.join(@fixtures_dir, 'gnu.png')
+      @uploaded_file = File.join(@fixtures_dir, 'uploaded_file.png')
+    end
+
+    after do
+      if File.exists?(@uploaded_file)
+        FileUtils.rm(@uploaded_file)
+      end
+    end
+
+    it "should not mess with file uploads" do
+      file = Rack::Test::UploadedFile.new(@gnu_file, 'image/png')
+
+      post '/fileupload', {"file" => file}
+      File.exists?(@uploaded_file).should be_true
+      FileUtils.compare_file(@gnu_file, @uploaded_file).should be_true
+    end
   end
 end
