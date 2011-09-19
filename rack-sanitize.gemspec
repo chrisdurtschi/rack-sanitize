@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "sanitize", "~> 1.2.0"
+  s.add_runtime_dependency "sanitize", "~> 2.0.0"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", "~> 1.3.0"
   s.add_development_dependency "rack-test", "~> 0.5.4"
   s.add_development_dependency "sinatra", "~> 1.0"
-  s.add_development_dependency "activesupport", "~> 3.0.0.rc2"
+  s.add_development_dependency "activesupport", "~> 3.0.0"
 end
