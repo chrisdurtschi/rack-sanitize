@@ -38,10 +38,10 @@ describe Rack::Sanitize do
     }
 
     get '/get', params
-    last_response.body.should == "GETs: person[pets][][dog]=woof&person[pets][][cat]=meow&beer[]=porter&beer[]=pilsner"
+    last_response.body.should == "GETs: beer[]=porter&beer[]=pilsner&person[pets][][cat]=meow&person[pets][][dog]=woof"
 
     post '/post', params
-    last_response.body.should == "POSTs: person[pets][][dog]=woof&person[pets][][cat]=meow&beer[]=porter&beer[]=pilsner"
+    last_response.body.should == "POSTs: beer[]=porter&beer[]=pilsner&person[pets][][cat]=meow&person[pets][][dog]=woof"
   end
 
   it "should allow the sanitize configuration to be set" do
@@ -50,13 +50,13 @@ describe Rack::Sanitize do
       run PotentialVictim
     end
 
-    params = {"image" => %Q{<img src="/hello.jpg" />}}
+    params = {"image" => %Q{<img src="/hello.jpg">}}
 
     get '/get', params
-    last_response.body.should == %Q{GETs: image=<img src="/hello.jpg" />}
+    last_response.body.should == %Q{GETs: image=<img src="/hello.jpg">}
 
     post '/post', params
-    last_response.body.should == %Q{POSTs: image=<img src="/hello.jpg" />}
+    last_response.body.should == %Q{POSTs: image=<img src="/hello.jpg">}
   end
 
   it "should sanitize if the path matches" do
